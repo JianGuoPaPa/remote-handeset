@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>app-store-connect</string>
+    <key>destination</key>
+    <string>upload</string>
+    <key>teamID</key>
+    <string>232AW49Q9J</string>
+    <key>signingStyle</key>
+    <string>manual</string>
+    <key>signingCertificate</key>
+    <string>3D0436E9D1438AC2FD91692E688B171AAAE9B884</string>
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>com.dltengwen.remotehandset</key>
+        <string>Remote Handset App Store</string>
+    </dict>
+    <key>manageAppVersionAndBuildNumber</key>
+    <false/>
+    <key>testFlightInternalTestingOnly</key>
+    <true/>
+    <key>stripSwiftSymbols</key>
+    <true/>
+    <key>uploadSymbols</key>
+    <true/>
+</dict>
+</plist>

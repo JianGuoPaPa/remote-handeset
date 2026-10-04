@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.local.iphone-usb-console-natpmp</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/zsh</string>
+		<string>/Users/niechen/Documents/Codex/2026-08-25/files-pasted-by-the-user-mac/work/iphone-usb-console/deploy/scripts/natpmp-renew.zsh</string>
+		<string>--apply</string>
+	</array>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>EXPECTED_PUBLIC_IP</key>
+		<string>REPLACE_WITH_CURRENT_PUBLIC_IP</string>
+		<key>PUBLIC_EDGE_MODE</key>
+		<string>production</string>
+		<key>PUBLIC_ROUTE_DIRECT_CONFIRMED</key>
+		<string>REPLACE_WITH_YES_AFTER_DIRECT_ROUTE_VALIDATION</string>
+		<key>PATH</key>
+		<string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+	</dict>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StartInterval</key>
+	<integer>900</integer>
+	<key>ProcessType</key>
+	<string>Background</string>
+	<key>StandardOutPath</key>
+	<string>/Users/niechen/Documents/Codex/2026-08-25/files-pasted-by-the-user-mac/work/iphone-usb-console/deploy/runtime/public-production/logs/natpmp.out.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/niechen/Documents/Codex/2026-08-25/files-pasted-by-the-user-mac/work/iphone-usb-console/deploy/runtime/public-production/logs/natpmp.err.log</string>
+</dict>
+</plist>

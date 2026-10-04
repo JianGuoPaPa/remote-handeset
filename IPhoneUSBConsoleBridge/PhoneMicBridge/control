@@ -1,0 +1,9 @@
+Package: local.iphone.usbmic
+Name: iPhone USB Microphone Bridge
+Version: 2.4.0
+Architecture: iphoneos-arm64
+Description: Demand-aware microphone input for authenticated direct remote iPhone control.
+Maintainer: Local iPhone Remote Control
+Author: Local iPhone Remote Control
+Section: System
+Depends: firmware (>= 15.0), mobilesubstrate, com.82flex.trollvnc (>= 3.2-288-perf2-mic16-demand14)

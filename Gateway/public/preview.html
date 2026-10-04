@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>远程手机本地预览</title>
+    <link rel="stylesheet" href="/static/preview.css">
+    <script src="/static/preview.js" defer></script>
+</head>
+<body>
+    <main class="preview-shell">
+        <video id="remoteVideo" autoplay muted playsinline></video>
+        <div class="status-pill" role="status" aria-live="polite">
+            <span id="statusDot" class="status-dot"></span>
+            <span id="statusText">正在连接</span>
+        </div>
+        <button id="reconnectButton" class="reconnect-button" type="button">
+            重新连接
+        </button>
+    </main>
+</body>
+</html>

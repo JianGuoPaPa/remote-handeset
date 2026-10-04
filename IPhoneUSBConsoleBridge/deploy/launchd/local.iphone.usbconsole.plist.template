@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>local.iphone.usbconsole</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>__EXECUTABLE_PATH__</string>
+    </array>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>IUSC_DEVICE_ID</key>
+        <string>iphone11-usb</string>
+        <key>IUSC_DISPLAY_NAME</key>
+        <string>苹果11</string>
+        <key>IUSC_TARGET_UDID</key>
+        <string>00008030-001E10691152802E</string>
+        <key>IUSC_VIDEO_BITRATE</key>
+        <string>800000</string>
+        <key>IUSC_VIDEO_FPS</key>
+        <string>30</string>
+        <key>IUSC_VIDEO_GOP_SECONDS</key>
+        <string>4</string>
+        <key>IUSC_VIDEO_MAX_SIZE</key>
+        <string>1280</string>
+        <key>IUSC_AUDIO_BITRATE</key>
+        <string>64000</string>
+    </dict>
+    <key>LimitLoadToSessionType</key>
+    <string>Aqua</string>
+    <key>RunAtLoad</key>
+    <true/>
+    <key>KeepAlive</key>
+    <true/>
+    <key>ThrottleInterval</key>
+    <integer>5</integer>
+    <key>ProcessType</key>
+    <string>Interactive</string>
+    <key>StandardOutPath</key>
+    <string>__LOG_DIRECTORY__/driver.log</string>
+    <key>StandardErrorPath</key>
+    <string>__LOG_DIRECTORY__/driver-error.log</string>
+</dict>
+</plist>

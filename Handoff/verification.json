@@ -1,0 +1,17 @@
+{
+  "shell_syntax": "passed",
+  "decryption_roundtrip": "all files byte-identical",
+  "decrypted_files": 18,
+  "portable_ssh_config": "ssh -G passed, no connection",
+  "android_arm64_build": "passed with CGO_ENABLED=0; binary -h exited 0; no service started",
+  "source_secrets": "App passwords and microphone shared-secret array replaced by placeholders",
+  "git_destination": "https://github.com/JianGuoPaPa/remote-handeset",
+  "visibility_instruction": "User authorized initial public upload and will switch to private later; credentials remain encrypted.",
+  "public_snapshot_cleanup": {
+    "removed_runtime_json_files": 32,
+    "guard_network_defaults_cleared": 8,
+    "python_syntax": "passed for all retained unattended Python scripts",
+    "old_local_git_history": "must not be pushed; upload current sanitized snapshot with remote master parent"
+  },
+  "github_authorization": "Personal account installation verified; current snapshot prepared for upload."
+}

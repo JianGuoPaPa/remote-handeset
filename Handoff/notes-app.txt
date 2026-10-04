@@ -1,0 +1,57 @@
+远控 App 迁移审查（2026-10-04；原项目只读核对，交付副本已去除源码秘密，现网未改动）
+
+1. 已确认的 App 工程
+
+源目录：手机远控/RemoteHandset、RemoteHandset.xcodeproj、project.yml、Tests。
+SwiftUI/UIKit 原生 iOS App；最低 iOS 17，Xcode 工程标记 26.0；Swift 5.0；WebRTC 精确锁定 150.0.0，Package.resolved 已在工程内。Bundle ID com.dltengwen.remotehandset，Team 232AW49Q9J，版本 1.0.0，构建 33。
+原项目审查时，将 Distribution/TestFlight-1.0.0-33/source-manifest.json 的 25 项逐一计算 SHA256，与当时原始源文件全部相符。三路实验没有修改这些 App 源码。此 GitHub 交付副本随后将访问密码等秘密替换为占位值，因此不能再用原构建清单声称交付源码逐字一致；交付文件以 Handoff/source-checksums.json 为准。
+工程 project.yml 排除了 Core/Audio/PushToTalkAudioCapture.swift；仍应保留整个源码树作为完整工程，不要擅自删除这个文件或改变原构建设置。
+
+建议纳入迁移包：
+- RemoteHandset/ 全部源码及自有 Assets、Info.plist、PrivacyInfo.xcprivacy。
+- RemoteHandset.xcodeproj/，含共享 scheme 和 Package.resolved；排除 xcuserdata。
+- project.yml、Tests/、README.md。
+- Distribution/ExportOptions-TestFlight.plist、ExportOptions-TestFlight-Upload.plist、ExportOptions-AdHoc.plist、ExportOptions-AdHoc-Manual.plist、generate_asc_jwt.js。
+- 既有已签名 IPA 和构建清单可另行留档；此次 GitHub 仓库不包含 IPA，源码校验见 Handoff/source-checksums.json。
+- Downloads/TestFlight成功上传流程-20261003.md，作为此前 MacBook 上已成功执行的上传流程记录。
+无需打包 archive.log、export.log、Packaging.log、上传日志、历史视频验证文件、旧机器状态快照、聊天附件、无关照片。旧 release-verification.json 中曾记录上传失败，发生时间早于随后 MacBook 的成功上传，不能用它判断当前 TestFlight 状态。
+
+2. 现有安装包
+
+文件：手机远控/Distribution/TestFlight-1.0.0-33/export-appstore/RemoteHandset.ipa。
+原 Mac 的 /Users/zhaogongzi/Downloads/RemoteHandset-1.0.0-33.ipa 是同版本副本。此次 GitHub 仓库未纳入 IPA，需要留档时可从该位置单独取得。
+大小：7041723 字节。
+SHA256：d332c9139932d393a8623e5238eb8faa89c788e2104ea362b4011158bdfe8fae。
+包内身份已读取核对：com.dltengwen.remotehandset，1.0.0，build 33，最低 iOS 17.0。
+这是已有 App Store/TestFlight 分发包，用于留档核对；不应描述为在新 Mac 或任意 iPhone 上双击即可安装。它仍只带旧手机清单，也不能重新上传相同 build 33。
+
+3. 两部新手机必须配置的地方
+
+RemoteHandset/App/AppConfiguration.swift 的 deviceTargets 是静态清单，当前为七部 Android 和一部 iPhone；没有从服务器拉取新设备清单的实现。
+新手机在新 Mac 上获得 ADB 授权、读取各自稳定 ro.serialno 后，需将对应 serial、.android、显示名加入/替换新部署的 App 清单，并对齐新 Gateway 的允许设备清单、无线配置、预热和守护配置。
+当前 App 的手机改名只保存在客户端 UserDefaults，不能借改名改变硬件 serial 或增加新手机。
+当前 App 使用 AppConfiguration.defaultServerURL，值为 https://70.39.202.192。Controller 虽有 savedServerAddress 存储支持，但计算器解锁实际再次使用 AppConfiguration.defaultServerString 登录，现有 UI 无供用户切换服务器的入口。若新部署使用另一入口，应修改此配置并发布新构建；不能承诺通过系统设置即可改服务器。
+计算器解锁密码与 Portal 登录密码为两个不同配置。此次交付源码中两处值均已替换为 CHANGE_ME_ON_NEW_SITE，麦克风共享密钥数组也已置零；部署时必须设置新站点秘密。原始值仅保存在 Credentials/server-access.tar.gz.enc 加密包的 reference-source 中备查，不会自动恢复到源码。
+
+4. 多台 Mac 共用香港服务器的限制
+
+PortalAPI.trustedWebSocketURL 要求 wss、与 Portal 同 host、同 port，且路径必须为 /screen/ws。新部署若用不同公网端口，HTTPS Portal 与 WSS 都必须用同一新端口。若用不同主机名，需有对应有效 HTTPS 证书。
+新 Mac 不能直接接管或争用原 Mac 的远程转发监听端口，否则新网络和旧网络的设备会被错误路由或有一方无法启动。应为新 Mac 分配独立隧道/服务器 loopback 监听和独立 Portal 入口，或另行实现明确的按设备序列号分发。
+如果希望一个 App 同时控制两地全部手机，还需把设备所属站点/入口纳入 App 或服务端路由设计；当前仅一个 defaultServerURL + 静态设备清单，不具备直接把两台独立 Gateway 自动聚合的功能。本次打包不应宣称已实现。
+无线 ADB、Mac 到手机的 USB、LAN IP 都属于新网络本地配置；不要复制原七台手机的 serial/IP/授权状态作为新手机配置，也不要启用已停用的备用机3三路实验。
+
+5. 新 Mac 构建及签名材料的实际缺口
+
+本机仅在已检查的位置确认不存在：/Applications 下 Xcode、~/.config/dmini、~/.private_keys、~/Library/MobileDevice/Provisioning Profiles、~/Library/Developer/Xcode/UserData/Provisioning Profiles。
+本机 security find-identity -v -p codesigning 返回 0 个有效签名身份。
+工程和 IPA 不包含重新签名所需的 Apple Distribution 私钥；未发现可供迁移的 .p12、ASC .p8 或 .mobileprovision。因此此次仓库提供完整 App 工程与上传流程；现有已签名 IPA 仅在原 Mac 的 Downloads 留档，未纳入仓库。不能声称新的 Apple 签名环境已经配齐。
+既有 MacBook 的成功流程记录：完整 Xcode、~/.config/dmini/asc-api-key.json、其引用的 asc-api-key.p8，以及 Apple altool 所用私钥查找目录。该 MacBook 的签名证书及对应私钥、有效 App Store profile 或 Xcode 自动签名账户权限，应在实际需要发布时通过已有受控方式准备；本次仅打包服务器登录凭证，不扩展导出 Apple 钥匙串。
+新 Apple 芯片 Mac 若仅运行网关，不需要 Xcode iOS 签名环境；只有重建/发布 iOS App 才需要它。
+
+6. 复用已成功的 TestFlight 流程
+
+该用户提供流程记录称 build 33 已于 2026-10-03 上传成功、Apple 处理 VALID、进入“个人测试”组。本次未联网查询 Apple 状态，以上为既有成功记录。
+App Apple ID 为 6799048892。下一版先查后台已有构建号，选未上传编号（流程举例 34，不保证现在仍可用），修改 project.yml 与生成后的工程 CURRENT_PROJECT_VERSION，构建并导出匹配签名 IPA。
+按附带流程，在拥有凭据与完整 Xcode 的机器使用 xcrun altool --use-old-altool --upload-package，明确传入 Apple ID、Bundle ID 和包内版本/构建；API 参数由当地已有授权配置取得，不复制到普通输出或公开文档。
+确认上传退出码 0 和 UPLOAD SUCCEEDED，再查同一 Delivery 的 build-status，最后查测试组可见性。历史默认 --upload-app 的应用查询错误不能用来推断旧流程不可用；成功的 --upload-package 流程应优先复用。已上传 build 不要重复提交。
+重新发布后另行实测两部新手机的登录、出画面、触控、USB/无线切换；Apple 处理成功不等于功能验收通过。

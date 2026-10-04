@@ -1,0 +1,25 @@
+.DS_Store
+DerivedData/
+build/
+*.xcarchive
+*.ipa
+*.dSYM
+*.xcuserstate
+xcuserdata/
+
+
+# Migration secrets and generated artifacts
+.private/
+.decrypt.*/
+out/
+*.pem
+*.p8
+*.p12
+id_ed25519
+*.key
+.env
+.env.*
+!.env.sample
+!*.example.env
+passphrase*
+credentials.tar.gz

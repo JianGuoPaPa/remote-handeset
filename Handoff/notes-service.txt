@@ -1,0 +1,66 @@
+远控迁移至第二台 Apple Silicon Mac：代码与部署说明
+核对时间：2026-10-04
+用途：另一网络的第二台 Mac 管理两部新 Android；与现有 Mac mini 并行，不迁走现有手机。
+
+一、推荐保留的内容
+1. 手机远控/Gateway：Go 网关完整源码、go.mod/go.sum、public、测试及嵌入资源。必须保留 Gateway/sdriver/scrcpy/bin/scrcpy-server-v4.0；它是项目配套版本，不能直接换成 Homebrew 或官方同名 scrcpy-server。Linux 平台另外需要 sdriver/linux/bin/recorder 以满足对应构建的 go:embed；此 Mac/Android 交接副本不包含该 Linux 二进制。
+2. 手机远控/RemoteHandset、RemoteHandset.xcodeproj、project.yml、Tests：原生计算器客户端完整源码和已锁定的 WebRTC 包信息。
+3. Operations、MacPreview、IPhoneUSBConsoleBridge：运维与桌面预览源码；新站点只有 Android 时不需要运行 iPhone 桥。
+4. Distribution 的导出配置与发布说明可保留。IPA 是现网构建，设备列表仍是原来的手机，不能当成两部新手机已配置的新版。历史上传日志和旧验证截图不属于运行必需项。
+5. 服务运行文件应另放 runtime/macos-arm64：webscreen-secure、项目采用的 adb、USB 修复助手（如采用），并生成 SHA-256 清单。记录运行文件与源码对应关系。
+6. 香港服务器管理员登录资料、现有站点配置快照及原访问秘密仅保存在 Credentials/server-access.tar.gz.enc 加密包。源码中的 App 密码与麦克风共享密钥已替换为占位，解密口令另行交付。
+7. 排除 Experiments/backup3-tripath 和 ~/.remote-handset/tripath-pilot 运行配置；迁移采用用户恢复后的常规 USB/无线连接方案。Gateway 实验代理只有专用私密配置 enabled=true 才生效；新站点不得复制该配置。
+8. 不复制本机 adbkey/adbkey.pub。旧手机网络状态、安装和验收 JSON 快照已移除；守护脚本的 INITIAL/TRUSTED_BSSIDS 已清空，脚本中的旧 serial 和路径仍仅作参考。不得直接启用原站点 LaunchDaemon，这些不是新两部手机的授权。
+
+二、Mac 运行依赖和构建
+现有网关是 Mach-O arm64，依赖系统 AudioToolbox、CoreAudio、CoreFoundation、Security、libresolv、libSystem，无 Homebrew 动态库依赖；但现有文件 LC_BUILD_VERSION 的 minos=26.0、sdk=26.4。不能只写“适用所有 Apple Silicon Mac”。较早 macOS 应使用适配目标系统的构建或在目标 Mac 重编译。
+Gateway/go.mod 声明 Go 1.25.4；本机使用 Go 1.26.5。构建 cgo 版本需要 Xcode Command Line Tools。建议构建命令形态：
+  cd <源码目录>/Gateway
+  MACOSX_DEPLOYMENT_TARGET=13.0 CGO_ENABLED=1 GOOS=darwin GOARCH=arm64 go build -trimpath -o <输出目录>/webscreen-secure .
+构建后用 file 和 otool -l 核实架构/minos；不能仅凭环境变量宣称最低系统版本兼容。首次使用目标 OS 仍需试运行。首次构建需要获取 go.mod/go.sum 中的依赖。
+ADB 建议安装至 /opt/homebrew/bin/adb。Gateway/utils/adb.go 可以通过 WEBSCREEN_ADB_PATH 指定路径，但连接方式管理和守护脚本还硬编码 /opt/homebrew/bin/adb，不能只改一个环境变量。
+运行网关不需要完整 Xcode；编译 iOS App 需要完整 Xcode（project.yml 标注 Xcode 26.0）、开发者签名账户/证书、WebRTC 150.0.0。已有 .xcodeproj 可以直接打开，重新生成工程才需要 XcodeGen。最低 iOS 17。
+App 发布仍需有效 Apple 开发者登录与签名；服务器 SSH 凭证不能代替 App Store 发布资格。未包含发布密钥/签名证书时，不应声称可直接上传。
+
+三、首次新站点配置顺序
+1. 在新 Mac 解压，私钥权限 0600，核实包哈希。在新 Mac 当前用户目录生成运行目录，不沿用 /Users/zhaogongzi。
+2. 数据线连接两部新 Android，完成手机对这台新 Mac 的首次 USB 调试授权并信任。旧 Mac 授权不会自动转移。adb devices -l 只有状态 device 才可继续。
+3. 分别以精确 USB transport_id 读取 getprop ro.serialno，记录硬件序列号、机型、新局域网地址。IP 不是设备身份。USB 未授权或离线时不能当作可用设备。
+4. WEBSCREEN_DEVICE_ID 仅填新两机硬件 serial，WEBSCREEN_ADB_PATH 指向统一 adb，网关监听 127.0.0.1:8079，本地预览 127.0.0.1:8080。分配新的 origin-secret 与新站点入口。
+5. 先在本地预览验证两机分别有画面、声音、控制。初期可只用 USB；无线增强按下一节生成，不能直接运行旧 install-guards.py。
+6. 香港为第二站点配置独立 SSH 转发账户或新受限密钥权限，分配独立回环端口（安装前必须检查空闲与授权；18080 为现网 Portal 端口，不可使用）。现网用 127.0.0.1:18079，不得抢占。
+7. 公网认证入口必须把新站点请求转到新端口。现有入口不是自动多站点管理器；不能只启动第二条隧道而沿用旧路由。可新建独立域名/HTTPS 入口及认证实例，或明确实现并验证按设备分流。
+8. 更新 AppConfiguration.swift 的新入口、设备列表及访问配置。若一个 App 同时管理原七机和新两机，应先支持多站点地址/认证/路由，再加列表。只改名字或 serial 不能自动跨两个网关。
+9. 本地、香港转发、公网登录/票据、两机实际 App 播控逐层成功后，再启用新 Mac 的 launchd 自启动。服务以持有 ADB 授权的本机用户运行。
+
+四、无线增强迁移限制
+Gateway/webservice/deviceTransport.go 的 wirelessDeviceDirectories 显式列出旧七台 serial 与守护目录。新 serial 不在表内，服务不会认可无线切换能力。
+Operations/android-unattended-20261003/guard-template.py 的 SERIAL、INITIAL、TRUSTED_BSSIDS、ADB 路径必须根据新设备与新网络生成。不要预置旧 status.json；enabled、verified_endpoints、wifi_endpoints.verified_serial、verified_at 必须来自新设备真实核验。
+adb-router-seven.py 的 TARGETS、SERIAL、WHITE_SERIAL、ADDITIONAL_SERIALS 是旧七台列表。如作为 WEBSCREEN_ADB_PATH 代理，要改成新站点配置或根据新两台生成；保留 transport_id 与 ro.serialno 校验。
+install-guards.py 假定 installation.json 存在且 TCP 5555 已开；旧 installation.json 属于运行记录，已从此副本移除。此脚本不是空白新机安装器，须按新设备重新生成记录并适配，不能原样运行。
+先经已授权 USB 逐台开启 TCP ADB，核验 Wi-Fi IP、连接和硬件 serial，再部署守护。原生无线调试依赖 Android 自身配对与网络许可，不能保证跳过首次授权。两机与新 Mac 必须处于可互访局域网，避免 AP/client isolation；5555 不映射到公网。
+无人值守可按实际机型验证 adb_allowed_connection_time=0、stay_on_while_plugged_in=7、wifi_sleep_policy=2。0 表示此系统设置关闭调试授权超时，不保证厂商清理授权、系统更新或恢复出厂后仍永久可控。
+开启 TCP ADB 可能重启该手机 adbd 并短暂断线，应逐台验证，勿全局重启 adb server。手机重启后通常需要已授权 USB 或已可信原生无线连接，由守护恢复 TCP；不能承诺纯 Wi-Fi 在所有机型/重启状态自动恢复。
+
+五、硬编码路径与网络清单
+Operations/run-webscreen-secure.sh：旧用户绝对路径、旧七机+iPhone 白名单、旧香港入口、iPhone 配置；也是历史快照，不能替代当前实际运行脚本直接覆盖。
+Operations/remote-handset-watchdog.sh：旧七机身份和名称；部分用户/目录可由环境变量覆盖，设备列表与公网健康地址仍需修改。未适配前勿启用。
+Operations/service-status-widget/*、旧守护 *.plist：旧路径、launchd 域与机名。
+Gateway/webservice/deviceTransport.go：旧 serial→守护目录映射、/opt/homebrew/bin/adb。
+RemoteHandset/App/AppConfiguration.swift：固定公网地址、固定 deviceTargets；App 访问密码已用占位替换。
+现网 SSH 隧道：-R 127.0.0.1:18079:127.0.0.1:8079。新机不能复用同一远端监听端口。
+本地 8079/8080 在不同 Mac 可相同。香港远端端口必须不同。HTTPS/SSH 需新网络可出站；WebRTC 配置 TURN UDP/TCP 3478，具体防火墙按服务器配置核实。公网 443 正常不代表 TURN 音视频一定畅通。
+现有 nginx、coturn、旧认证入口和隧道不得为新站点被覆盖/停止；新服务使用独立文件、端口、日志。
+
+六、验收
+每机：USB device 且 serial 一致；本地真实 framesDecoded 增长、声音和点击返回响应；无线同一 serial、单机切换可恢复 USB；新公网入口登录/短票据成功，iOS App 连续播放与控制。
+主机：启动用户/路径正确；重启登录后的 launchd 状态符合 LaunchAgent/LaunchDaemon 模式；服务/隧道独立；原七机不变；私钥不由 HTTP 静态目录直接提供。
+区分“本机验证的打包/构建”与“新 Mac 与新两机接入后验证”。尚不知道新手机 serial，也未访问新 Mac，新机授权、无线配置和新站点实际播控尚不能视为完成。
+
+
+七、本次独立构建记录（不改现网）
+已在准备目录 runtime/webscreen-secure 生成独立 arm64 文件，Go 1.26.5、SDK 26.4.1，CGO_ENABLED=1、MACOSX_DEPLOYMENT_TARGET=13.0；-h 测试退出 0，未启动服务。otool 显示最终 Mach-O minos=13.0、sdk=26.4。
+但链接器警告 Go 缓存对象以及 IPhoneUSBConsoleBridge/Vendor/lib/libusbmuxd-2.0.a、libimobiledevice-glue-1.0.a、libplist-2.0.a 内的对象按照 macOS 26.0 构建。因此较早 macOS 兼容性未验证，不能按最终13.0标签作保证。build-verification.json 记录 SHA-256 与限制。
+完整 cgo 网关编译还必须保留 IPhoneUSBConsoleBridge/Vendor/include 和 Vendor/lib，即使新站点暂时只管理 Android；usbmux_darwin.go 通过相对路径直接链接这些静态库。
+用户已选择 GitHub 仓库交接，并批准先公开上传、之后自行改为私有。凭证保持独立加密，源码访问秘密已替换；本说明不代表已上传或已改为私有。此次远端只上传清理后的文件快照，不推送迁移副本的旧本地历史。
+Android 专用入口已独立以 CGO_ENABLED=0 构建通过，详见 build-android-verification.json；新 Mac 应使用 Setup/build-android-gateway.sh，避免依赖旧 cgo 静态库。

@@ -1,0 +1,539 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		05C6BA174E90B1A60D6ACDA1 /* DiagnosticsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DFD7382CD60691DB4F14013 /* DiagnosticsView.swift */; };
+		20FD15CEDD17936C976C7419 /* WebRTC in Frameworks */ = {isa = PBXBuildFile; productRef = D700232F2299B995837B51C4 /* WebRTC */; };
+		2E05ADD3CB660ECEC30B7343 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB83B0F180622EC0F90294B2 /* NetworkMonitor.swift */; };
+		37670563A8B0485283630523 /* Diagnostics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8474CA0DD8C29CBECBC4F0FA /* Diagnostics.swift */; };
+		3A555AD55E42D5E0D9BAA7E0 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BE307D64D437170834B23B8 /* LoginView.swift */; };
+		47B9B91F7F680ACAF2D111E5 /* RemoteSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B900595D70706EAEEF98750 /* RemoteSessionController.swift */; };
+		5746CCE8D18E1CA129198662 /* RemoteVideoSurface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 970A42AA166BE7DC2C56CC22 /* RemoteVideoSurface.swift */; };
+		5A78649CF566F39EF29D7B08 /* KeychainStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 681BCBC38C8D6B3FAA688E49 /* KeychainStore.swift */; };
+		5BBB4015D042E3C3A55935FD /* CalculatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E7AF5D0733F18F9422B5C8 /* CalculatorView.swift */; };
+		6391CB6DD7BDF8EA98D54143 /* RemoteHandsetApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ADECA953B283D11F454DFDB /* RemoteHandsetApp.swift */; };
+		6563636BBD64035865D1310A /* MicrophonePacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9BB60547A3E5A2965E886FA7 /* MicrophonePacket.swift */; };
+		70EE29E135E363AF9DE5F40C /* PortalAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54B11544D6CAF2337C5C9E02 /* PortalAPI.swift */; };
+		745018E8B1530D3789A3B8D8 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845E6AB631BE35E78A1873C4 /* ControlView.swift */; };
+		746C97CEAD6251FA3003AAE9 /* ControlPacket.swift in Sources */ = {isa = PBXBuildFile; fileRef = A92F210716F9DE54311848A0 /* ControlPacket.swift */; };
+		83AE5C423662BFEE3F65C0C3 /* TextInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 979278E262D90F3BA76C9258 /* TextInputView.swift */; };
+		8B53B76EA22BC62E87488E82 /* AdaptiveConnectionPolicy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E9A8AC84D040FB4F60C2DF8 /* AdaptiveConnectionPolicy.swift */; };
+		8B9916D715850A98F5145F43 /* CalculatorEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 56EF9022B608AA0F76A87A46 /* CalculatorEngine.swift */; };
+		8D54429F9A370EFCD883C9F6 /* SignalingSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6081355CF6C82129499F3BD8 /* SignalingSocket.swift */; };
+		9ECDB915389BB7C632BE116B /* WebRTCClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D5A0A2C5F2D6FAD4B14C8F9 /* WebRTCClient.swift */; };
+		A13D0912F7EB0359CC2E61B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4B43255B46FB609BADEBEC4 /* Assets.xcassets */; };
+		DF6A22E1AFF3B25D1E558299 /* APIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD0B8948F620694500E69CE7 /* APIModels.swift */; };
+		EB35E19995D1A00F99A7BD7A /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D516F6A85CF21C513D2E3D9D /* AppConfiguration.swift */; };
+		F1643A2A3CD6A3807B1CFB6C /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7A7020737FF516C014C469A7 /* PrivacyInfo.xcprivacy */; };
+		F2FB40ECA494EED845094A3A /* ControlToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F8CDFC591AA34C5AD88D17 /* ControlToolbar.swift */; };
+		F5E319C106A984F052F59EB1 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CE0A70D53AD2A7C0274BA8 /* RootView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		11F8CDFC591AA34C5AD88D17 /* ControlToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlToolbar.swift; sourceTree = "<group>"; };
+		2B900595D70706EAEEF98750 /* RemoteSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSessionController.swift; sourceTree = "<group>"; };
+		3ADECA953B283D11F454DFDB /* RemoteHandsetApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteHandsetApp.swift; sourceTree = "<group>"; };
+		3E9A8AC84D040FB4F60C2DF8 /* AdaptiveConnectionPolicy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveConnectionPolicy.swift; sourceTree = "<group>"; };
+		54B11544D6CAF2337C5C9E02 /* PortalAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortalAPI.swift; sourceTree = "<group>"; };
+		56EF9022B608AA0F76A87A46 /* CalculatorEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorEngine.swift; sourceTree = "<group>"; };
+		6081355CF6C82129499F3BD8 /* SignalingSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalingSocket.swift; sourceTree = "<group>"; };
+		681BCBC38C8D6B3FAA688E49 /* KeychainStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainStore.swift; sourceTree = "<group>"; };
+		6DFD7382CD60691DB4F14013 /* DiagnosticsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiagnosticsView.swift; sourceTree = "<group>"; };
+		7A7020737FF516C014C469A7 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		7D5A0A2C5F2D6FAD4B14C8F9 /* WebRTCClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRTCClient.swift; sourceTree = "<group>"; };
+		845E6AB631BE35E78A1873C4 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
+		8474CA0DD8C29CBECBC4F0FA /* Diagnostics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diagnostics.swift; sourceTree = "<group>"; };
+		8BE307D64D437170834B23B8 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		970A42AA166BE7DC2C56CC22 /* RemoteVideoSurface.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteVideoSurface.swift; sourceTree = "<group>"; };
+		979278E262D90F3BA76C9258 /* TextInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInputView.swift; sourceTree = "<group>"; };
+		9BB60547A3E5A2965E886FA7 /* MicrophonePacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MicrophonePacket.swift; sourceTree = "<group>"; };
+		A4E8CB2F0963DEAE943B5E22 /* RemoteHandset.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = RemoteHandset.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A92F210716F9DE54311848A0 /* ControlPacket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlPacket.swift; sourceTree = "<group>"; };
+		B0E7AF5D0733F18F9422B5C8 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
+		D516F6A85CF21C513D2E3D9D /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
+		DB83B0F180622EC0F90294B2 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		DD0B8948F620694500E69CE7 /* APIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIModels.swift; sourceTree = "<group>"; };
+		E4B43255B46FB609BADEBEC4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F9CE0A70D53AD2A7C0274BA8 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B784078C6BADBEF4C735832C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				20FD15CEDD17936C976C7419 /* WebRTC in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		00613D99161698B9718B43BE /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				3E9A8AC84D040FB4F60C2DF8 /* AdaptiveConnectionPolicy.swift */,
+				A92F210716F9DE54311848A0 /* ControlPacket.swift */,
+				8474CA0DD8C29CBECBC4F0FA /* Diagnostics.swift */,
+				2B900595D70706EAEEF98750 /* RemoteSessionController.swift */,
+				E7BE90EA0412E516454BBB45 /* API */,
+				BD29230238DBB99A1DC0BF8E /* Audio */,
+				402D01A1A188963E88F0CBCE /* Network */,
+				0877F69419C521ADBD9C7679 /* Security */,
+				F189454C1CF1D4D155C88D56 /* WebRTC */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		0877F69419C521ADBD9C7679 /* Security */ = {
+			isa = PBXGroup;
+			children = (
+				681BCBC38C8D6B3FAA688E49 /* KeychainStore.swift */,
+			);
+			path = Security;
+			sourceTree = "<group>";
+		};
+		0CFFAA43F0ED536BDC2FCC27 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A4E8CB2F0963DEAE943B5E22 /* RemoteHandset.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		335A9CF074BDEBB6C2A1CAC7 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D516F6A85CF21C513D2E3D9D /* AppConfiguration.swift */,
+				3ADECA953B283D11F454DFDB /* RemoteHandsetApp.swift */,
+				F9CE0A70D53AD2A7C0274BA8 /* RootView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		402D01A1A188963E88F0CBCE /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				DB83B0F180622EC0F90294B2 /* NetworkMonitor.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		79AB6A7E0FA116AD64A9F806 = {
+			isa = PBXGroup;
+			children = (
+				7B9AB0B66B4880E927F42BF5 /* RemoteHandset */,
+				0CFFAA43F0ED536BDC2FCC27 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7B9AB0B66B4880E927F42BF5 /* RemoteHandset */ = {
+			isa = PBXGroup;
+			children = (
+				335A9CF074BDEBB6C2A1CAC7 /* App */,
+				CE3FCAB3A8726C740F73AE54 /* Authentication */,
+				84C40BC61E1F9697E0C16C86 /* Calculator */,
+				CA73694FC2976E91476B5D96 /* Control */,
+				00613D99161698B9718B43BE /* Core */,
+				7D299668A96B5FAD8D470338 /* Resources */,
+			);
+			path = RemoteHandset;
+			sourceTree = "<group>";
+		};
+		7D299668A96B5FAD8D470338 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E4B43255B46FB609BADEBEC4 /* Assets.xcassets */,
+				7A7020737FF516C014C469A7 /* PrivacyInfo.xcprivacy */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		84C40BC61E1F9697E0C16C86 /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				56EF9022B608AA0F76A87A46 /* CalculatorEngine.swift */,
+				B0E7AF5D0733F18F9422B5C8 /* CalculatorView.swift */,
+			);
+			path = Calculator;
+			sourceTree = "<group>";
+		};
+		BD29230238DBB99A1DC0BF8E /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				9BB60547A3E5A2965E886FA7 /* MicrophonePacket.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		CA73694FC2976E91476B5D96 /* Control */ = {
+			isa = PBXGroup;
+			children = (
+				11F8CDFC591AA34C5AD88D17 /* ControlToolbar.swift */,
+				845E6AB631BE35E78A1873C4 /* ControlView.swift */,
+				6DFD7382CD60691DB4F14013 /* DiagnosticsView.swift */,
+				970A42AA166BE7DC2C56CC22 /* RemoteVideoSurface.swift */,
+				979278E262D90F3BA76C9258 /* TextInputView.swift */,
+			);
+			path = Control;
+			sourceTree = "<group>";
+		};
+		CE3FCAB3A8726C740F73AE54 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				8BE307D64D437170834B23B8 /* LoginView.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		E7BE90EA0412E516454BBB45 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				DD0B8948F620694500E69CE7 /* APIModels.swift */,
+				54B11544D6CAF2337C5C9E02 /* PortalAPI.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		F189454C1CF1D4D155C88D56 /* WebRTC */ = {
+			isa = PBXGroup;
+			children = (
+				6081355CF6C82129499F3BD8 /* SignalingSocket.swift */,
+				7D5A0A2C5F2D6FAD4B14C8F9 /* WebRTCClient.swift */,
+			);
+			path = WebRTC;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		52DC9F72B3CD4A463991C4D8 /* RemoteHandset */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2E9994A8B54A0A56D50E65F0 /* Build configuration list for PBXNativeTarget "RemoteHandset" */;
+			buildPhases = (
+				BD8333DD8EAD33ADC0A4F902 /* Sources */,
+				77323F70F19AE212AAE21240 /* Resources */,
+				B784078C6BADBEF4C735832C /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RemoteHandset;
+			packageProductDependencies = (
+				D700232F2299B995837B51C4 /* WebRTC */,
+			);
+			productName = RemoteHandset;
+			productReference = A4E8CB2F0963DEAE943B5E22 /* RemoteHandset.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D8C04C8DB01FD5C4B1BB82A3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					52DC9F72B3CD4A463991C4D8 = {
+						DevelopmentTeam = 232AW49Q9J;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 871BCF9AC713215B5C87E719 /* Build configuration list for PBXProject "RemoteHandset" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 79AB6A7E0FA116AD64A9F806;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				CBDC704C636C6807730E0984 /* XCRemoteSwiftPackageReference "WebRTC" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 0CFFAA43F0ED536BDC2FCC27 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				52DC9F72B3CD4A463991C4D8 /* RemoteHandset */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		77323F70F19AE212AAE21240 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A13D0912F7EB0359CC2E61B7 /* Assets.xcassets in Resources */,
+				F1643A2A3CD6A3807B1CFB6C /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		BD8333DD8EAD33ADC0A4F902 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF6A22E1AFF3B25D1E558299 /* APIModels.swift in Sources */,
+				8B53B76EA22BC62E87488E82 /* AdaptiveConnectionPolicy.swift in Sources */,
+				EB35E19995D1A00F99A7BD7A /* AppConfiguration.swift in Sources */,
+				8B9916D715850A98F5145F43 /* CalculatorEngine.swift in Sources */,
+				5BBB4015D042E3C3A55935FD /* CalculatorView.swift in Sources */,
+				746C97CEAD6251FA3003AAE9 /* ControlPacket.swift in Sources */,
+				F2FB40ECA494EED845094A3A /* ControlToolbar.swift in Sources */,
+				745018E8B1530D3789A3B8D8 /* ControlView.swift in Sources */,
+				37670563A8B0485283630523 /* Diagnostics.swift in Sources */,
+				05C6BA174E90B1A60D6ACDA1 /* DiagnosticsView.swift in Sources */,
+				5A78649CF566F39EF29D7B08 /* KeychainStore.swift in Sources */,
+				3A555AD55E42D5E0D9BAA7E0 /* LoginView.swift in Sources */,
+				6563636BBD64035865D1310A /* MicrophonePacket.swift in Sources */,
+				2E05ADD3CB660ECEC30B7343 /* NetworkMonitor.swift in Sources */,
+				70EE29E135E363AF9DE5F40C /* PortalAPI.swift in Sources */,
+				6391CB6DD7BDF8EA98D54143 /* RemoteHandsetApp.swift in Sources */,
+				47B9B91F7F680ACAF2D111E5 /* RemoteSessionController.swift in Sources */,
+				5746CCE8D18E1CA129198662 /* RemoteVideoSurface.swift in Sources */,
+				F5E319C106A984F052F59EB1 /* RootView.swift in Sources */,
+				8D54429F9A370EFCD883C9F6 /* SignalingSocket.swift in Sources */,
+				83AE5C423662BFEE3F65C0C3 /* TextInputView.swift in Sources */,
+				9ECDB915389BB7C632BE116B /* WebRTCClient.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		0B13AA900320A4C2CFBF9B45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 33;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RemoteHandset/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dltengwen.remotehandset;
+				PRODUCT_NAME = RemoteHandset;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1792FBF56FCB32A2A3C2C335 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 232AW49Q9J;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		24F04309D9E287B73CCC2EA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 232AW49Q9J;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		692F63A3738964B9B974996C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 33;
+				DEAD_CODE_STRIPPING = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = RemoteHandset/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.dltengwen.remotehandset;
+				PRODUCT_NAME = RemoteHandset;
+				SDKROOT = iphoneos;
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		2E9994A8B54A0A56D50E65F0 /* Build configuration list for PBXNativeTarget "RemoteHandset" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				692F63A3738964B9B974996C /* Debug */,
+				0B13AA900320A4C2CFBF9B45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		871BCF9AC713215B5C87E719 /* Build configuration list for PBXProject "RemoteHandset" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				24F04309D9E287B73CCC2EA6 /* Debug */,
+				1792FBF56FCB32A2A3C2C335 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CBDC704C636C6807730E0984 /* XCRemoteSwiftPackageReference "WebRTC" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/stasel/WebRTC.git";
+			requirement = {
+				kind = exactVersion;
+				version = 150.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D700232F2299B995837B51C4 /* WebRTC */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CBDC704C636C6807730E0984 /* XCRemoteSwiftPackageReference "WebRTC" */;
+			productName = WebRTC;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = D8C04C8DB01FD5C4B1BB82A3 /* Project object */;
+}

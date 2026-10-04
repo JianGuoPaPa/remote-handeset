@@ -1,0 +1,61 @@
+        /* 禁止移动端双击缩放 */
+        * {
+            touch-action: manipulation;
+        }
+
+        /* 隐藏数字输入框的箭头 */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* 震动动画 */
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-10px);
+            }
+
+            40% {
+                transform: translateX(10px);
+            }
+
+            60% {
+                transform: translateX(-10px);
+            }
+
+            80% {
+                transform: translateX(10px);
+            }
+        }
+
+        .animate-shake {
+            animation: shake 0.4s cubic-bezier(.36, .07, .19, .97) both;
+        }
+
+        /* 按键点击态 */
+        .key-btn:active {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* 平滑过渡 */
+        .pin-dot {
+            transition: all 0.2s ease;
+        }
+
+        /* 隐藏主界面，解锁后显示 */
+        #main-app {
+            display: none;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        #lock-screen {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }

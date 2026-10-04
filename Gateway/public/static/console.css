@@ -1,0 +1,245 @@
+:root {
+    /* Material 3 Dark Colors Approximation */
+    --md-sys-color-surface: #141414;
+    --md-sys-color-surface-container: #1e1f20;
+    --md-sys-color-surface-container-high: #28292a;
+    --md-sys-color-primary: #a8c7fa;
+    --md-sys-color-on-primary: #062e6f;
+    --md-sys-color-secondary-container: #004a77;
+    --md-sys-color-on-secondary-container: #c2e7ff;
+    --md-sys-color-error: #ffb4ab;
+    --md-sys-color-on-surface: #e3e3e3;
+    --md-sys-color-on-surface-variant: #c4c7c5;
+    --md-sys-color-outline: #8e918f;
+    --md-sys-color-outline-variant: #444746;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Material Design 3 Elevation & Shapes */
+.card {
+    background-color: var(--md-sys-color-surface-container);
+    transition: transform 0.2s cubic-bezier(0.2, 0.0, 0, 1.0), box-shadow 0.2s;
+}
+
+.card:active {
+    transform: scale(0.98);
+}
+
+/* Inputs */
+.md-input {
+    background-color: var(--md-sys-color-surface-container-high);
+    border: 1px solid transparent;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.md-input:focus {
+    background-color: #333;
+    border-color: var(--md-sys-color-primary);
+    outline: none;
+}
+
+/* --- Material 3 Toggle Switch --- */
+.md-switch {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    width: 52px;
+    height: 32px;
+    background: transparent;
+    border: 2px solid var(--md-sys-color-outline);
+    border-radius: 100px;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease-in-out;
+}
+
+/* Handle (Circle) */
+.md-switch::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 6px;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background: var(--md-sys-color-outline);
+    border-radius: 50%;
+    transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Handle Icon (Optional: simulated checkmark/icon state) */
+.md-switch::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 6px;
+    transform: translateY(-50%) scale(0);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    transition: transform 0.2s;
+}
+
+/* Checked State - Track */
+.md-switch:checked {
+    background: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-primary);
+}
+
+/* Checked State - Handle */
+.md-switch:checked::after {
+    left: calc(100% - 22px); /* 52px width - 2px border - 16px handle - 6px padding approx */
+    background: var(--md-sys-color-on-primary);
+    width: 22px;
+    height: 22px;
+}
+
+/* Hover State */
+.md-switch:hover:not(:checked) {
+    border-color: var(--md-sys-color-on-surface-variant);
+}
+
+.md-switch:hover:not(:checked)::after {
+    background: var(--md-sys-color-on-surface-variant);
+}
+
+/* Active/Pressed State */
+.md-switch:active::after {
+    width: 24px; 
+}
+
+/* --- End Switch --- */
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #666;
+}
+
+/* Dialog Animation */
+dialog {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: auto;
+    /* Important for native centering */
+    max-width: 100%;
+    max-height: 100%;
+    color: inherit;
+}
+
+/* Fix for Tailwind conflict: ensure hidden when not open */
+dialog:not([open]) {
+    display: none !important;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+dialog[open]::backdrop {
+    opacity: 1;
+}
+
+.dialog-panel {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.2, 0, 0, 1);
+}
+
+dialog[open] .dialog-panel {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* Toast Notification */
+#toast-container {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+    width: 90%;
+    max-width: 400px;
+}
+
+.toast {
+    background-color: #333;
+    color: #fff;
+    padding: 14px 24px;
+    border-radius: 50px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: toastIn 0.3s forwards;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.toast.error {
+    background-color: #3b1e1e;
+    color: var(--md-sys-color-error);
+}
+
+@keyframes toastIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes toastOut {
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+/* Loader */
+.spinner {
+    width: 24px;
+    height: 24px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--md-sys-color-primary);
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}

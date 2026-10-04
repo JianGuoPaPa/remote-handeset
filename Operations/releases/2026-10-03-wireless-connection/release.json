@@ -1,0 +1,12 @@
+{
+  "old_sha256": "093650f5cbf072b56173f39436aed6fe747534c987fc70d78d2e74887dd0b13e",
+  "new_sha256": "a8a16203be917949ffb2d46b16895a41df43b95ba5a3d3e261a5989daff42ec8",
+  "source": "/Users/zhaogongzi/Downloads/\u624b\u673a\u8fdc\u63a7/Gateway",
+  "ios_build": 33,
+  "checks": [
+    "go test ./...",
+    "go test -race ./webservice ./sdriver/scrcpy ./streamAgent",
+    "Swift connection contract tests",
+    "iOS release signed archive and export"
+  ]
+}

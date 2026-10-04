@@ -1,0 +1,154 @@
+# Webscreen
+
+[简体中文](README.zh.md)
+[日本語](README.ja.md)
+
+## ℹ️ About
+
+[Watch Demo](https://youtu.be/6WtbwaIk2aY)
+
+Webscreen is a self-hosted screen streaming web application for Android and Linux devices, based on WebRTC. Might support more devices in the future!
+![screenshot](doc/assets/screenshot.png)
+
+It can run on:
+
+- Android Termux
+- Linux
+- Windows
+- MacOS
+
+on both `amd64` and `arm64`
+
+Android supports ([scrcpy](https://github.com/Genymobile/scrcpy)):
+
+- Video, Audio, Control
+- UHID Devices (Mouse, Keyboard, Gamepad)
+- Clipboard Sync
+- Touch (Multi-finger, pressure)
+- H.264/H.265
+- Multi-Connection
+- Maybe more...
+
+Linux supports (Xvfb/Xorg/Sway):
+- Video, Control
+- Touch
+- H.264/H.265
+- GPU (Xorg/Sway)
+
+## Prerequisites
+
+For device side, please refer to [scrcpy](https://github.com/Genymobile/scrcpy/blob/master/README.md#prerequisites)
+
+For server side, you'd better have `adb` and `xvfb, ffmpeg, xfce4, sway, wf-recorder (if need this feature, optional)` in your PATH first.
+
+```bash
+# Build by yourself:
+git clone https://github.com/huonwe/webscreen.git
+cd webscreen
+make
+
+# Use pre-built binary:
+apt install adb
+# if you want to stream Linux display
+apt install xvfb ffmpeg xfce4 sway wf-recorder
+# then you can directly use pre-built binary
+```
+
+**for client side, you need a web browser that support WebRTC (H.264 High Profile, or H.265 Main Profile).**
+
+## Usage
+
+Download the latest [release](https://github.com/huonwe/webscreen/releases), execute the program. The default port is `8079`, but you can specifiy it by `-port 8080`. 6-digit PIN is also needed (default to '123456'). An example command: `./webscreen -host 0.0.0.0 -port 8080 -pin 555555`
+Then open your favorite browser and visit `<your ip>:<your port>`
+
+Or you can build by yourself. Normally, you can build simply by `go build`. But if you want to build by yourself on `Termux`, you need to run `go build -ldflags "-checklinkname=0"`.
+
+You can also use docker.
+
+For lite version:
+
+```yaml
+services:
+  webscreen:
+    image: dukihiroi/webscreen:latest
+    container_name: webscreen
+    network_mode: host
+    # If you want to use bridge network:
+    # You need to ensure that your device is accessible from the container
+    # You also need to forward the necessary UDP traffic. If you face problems on it, please use host network mode.
+    # ports:
+    #   - "8079:8079"
+    #   - "51200-51299:51200-51299/udp"
+    restart: unless-stopped
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+    privileged: true
+    environment:
+      - GIN_MODE=release
+      - PORT=8081
+      - PIN=DISABLED
+```
+
+For full version which including Linux desktop environment:
+`cp .env.sample .env`
+
+```yaml
+services:
+  webscreen-full:
+    user: appuser
+    image: dukihiroi/webscreen-full:latest
+    container_name: webscreen-full
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+      - /dev/input:/dev/input
+      - /run/udev:/run/udev:ro
+    devices:
+      - /dev/uinput:/dev/uinput
+      - /dev/dri:/dev/dri
+    group_add:
+      - ${UINPUT_GID}
+    privileged: true
+    environment:
+      - GIN_MODE=release
+      - PORT=8081
+      - PIN=DISABLED
+```
+
+`host` network mode is recommended because of UDP traffic and device connection.
+
+You might need to pair Android device in [wireless debug](https://developer.android.com/studio/debug/dev-options#enable) first. `Pair device with pairing code` is supported. Once you finished pairing, type `Connect` button and enter necessary information.
+
+After you start streaming, you might need to manually make the scene a little changed, to get the screen. You can simply click volume button to make it.
+
+### Others
+
+[Quick Start with Redroid](https://github.com/huonwe/webscreen/blob/main/doc/quick-start-redroid.md)
+
+## FAQ
+
+- Crash: MediaCodec 0x80001001 Exception on custom Android devices due to hardcoded H.264 High Profile (profile=8) [#11](https://github.com/huonwe/webscreen/issues/11)
+  - set **profile=1** to **video_codec_options**
+
+## [For Developers](doc/dev)
+
+## License
+
+```LICENSE
+Webscreen, streaming your device in Web browser.
+Copyright (C) 2026  Hiroi
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+```

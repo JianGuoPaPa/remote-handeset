@@ -1,0 +1,22 @@
+#!/bin/sh
+set -e
+
+CACHE_DIR="/var/mobile/Library/Caches/local.iphone.usbmic"
+PLIST="/var/jb/Library/LaunchDaemons/local.iphone.usbmicd.plist"
+LAUNCHCTL="/var/jb/usr/bin/launchctl"
+[ -x "$LAUNCHCTL" ] || LAUNCHCTL="launchctl"
+
+mkdir -p "$CACHE_DIR"
+chown mobile:mobile "$CACHE_DIR"
+chmod 0700 "$CACHE_DIR"
+
+"$LAUNCHCTL" bootout system/local.iphone.usbmicd >/dev/null 2>&1 || true
+"$LAUNCHCTL" bootstrap system "$PLIST" >/dev/null 2>&1 || true
+"$LAUNCHCTL" kickstart -k system/local.iphone.usbmicd >/dev/null 2>&1 || true
+
+# Do not reload SpringBoard from inside dpkg. The tweak is injected when a
+# target recording app is launched, so closing and reopening that app is
+# sufficient. Reloading the UI here can terminate Sileo before dpkg records the
+# package as configured, leaving every subsequent install in interrupted state.
+
+exit 0

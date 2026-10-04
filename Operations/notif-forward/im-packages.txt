@@ -1,0 +1,58 @@
+# One Android package glob per line. The Telegram /apps menu only exposes
+# communication apps matching this list; notification forwarding itself still
+# handles every package and keeps all existing mute/name records intact.
+
+# China / enterprise messaging
+com.tencent.mm
+com.tencent.mobileqq*
+com.tencent.qqlite
+com.tencent.mobileqqi
+com.tencent.minihd.qq
+com.tencent.tim
+com.tencent.wework
+com.tencent.work*
+com.alibaba.android.rimet
+com.ss.android.lark
+com.larksuite.suite
+com.bytedance.feishu
+
+# Global messaging
+org.telegram.messenger*
+org.thunderdog.challegram
+com.whatsapp*
+jp.naver.line.android
+org.thoughtcrime.securesms
+com.viber.voip
+com.zing.zalo
+com.kakao.talk
+com.skype.raider
+com.discord
+com.Slack
+com.microsoft.teams*
+com.microsoft.office.teams
+com.imo.android.imoim*
+kik.android
+com.beeper.android
+network.loki.messenger
+im.vector.app
+io.element.android.x
+com.wire
+com.silentcircle.silentphone2
+
+# Social apps with direct messaging
+com.facebook.orca
+com.facebook.mlite
+com.facebook.katana
+com.facebook.lite
+com.instagram.android
+com.twitter.android
+com.x.android
+com.snapchat.android
+
+# Google / system messaging
+com.google.android.apps.dynamite
+com.google.android.apps.messaging
+com.google.android.apps.tachyon
+com.android.mms
+com.android.messaging
+com.samsung.android.messaging

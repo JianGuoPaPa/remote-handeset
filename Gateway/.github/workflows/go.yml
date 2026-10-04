@@ -1,0 +1,159 @@
+name: Build and Release
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+on:
+  push:
+    branches: [ "main" ]
+    tags:
+      - "v*"
+      - "dev*"
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build (${{ matrix.goos }}/${{ matrix.goarch }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        goos: [linux, windows, darwin]
+        goarch: [amd64, arm64]
+        include:
+          - goos: android
+            goarch: arm64
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Set up Go
+      uses: actions/setup-go@v5
+      with:
+        go-version: 'stable'
+
+    - name: Build Binary
+      env:
+        GOOS: ${{ matrix.goos }}
+        GOARCH: ${{ matrix.goarch }}
+        CGO_ENABLED: 0
+      run: |
+        # 1. 确定二进制文件名
+        BINARY_NAME="webscreen-${{ matrix.goos }}-${{ matrix.goarch }}"
+        
+        # 2. 如果是 Windows，添加 .exe 后缀
+        if [ "${{ matrix.goos }}" = "windows" ]; then
+          BINARY_NAME="${BINARY_NAME}.exe"
+        fi
+
+        # 3. 执行构建 (-o 指定输出路径)
+        echo "Building $BINARY_NAME..."
+        mkdir -p dist
+        make ci DIST_DIR=dist SUFFIX="-${{ matrix.goos }}-${{ matrix.goarch }}"
+        # go build -v -o "dist/$BINARY_NAME" .
+
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        # 将构建产物上传到 GitHub Actions 临时存储区
+        name: binary-${{ matrix.goos }}-${{ matrix.goarch }}
+        path: dist/
+
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    needs: build # 必须等所有 build 任务都成功才执行
+    # 仅在 Tag 推送时运行此步骤
+    if: startsWith(github.ref, 'refs/tags/')
+    permissions:
+      contents: write
+    steps:
+    - name: Download All Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        path: ./assets
+        # 不指定 name 则下载所有 artifacts
+        merge-multiple: true 
+
+    - name: Display Downloaded Files
+      run: ls -R ./assets
+
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        # 将下载的所有二进制文件上传到 Release
+        files: assets/*
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  docker:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download All Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./dist
+          merge-multiple: true
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # ==========================================
+      # [Lite 版本] 构建与推送
+      # ==========================================
+      - name: Extract Docker metadata (Lite)
+        id: meta-lite
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/webscreen
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=semver,pattern={{version}}
+
+      - name: Build and push Docker image (Lite)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./docker/lite/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta-lite.outputs.tags }}
+          labels: ${{ steps.meta-lite.outputs.labels }}
+
+      # ==========================================
+      # [Full 版本] 构建与推送
+      # ==========================================
+      - name: Extract Docker metadata (Full)
+        id: meta-full
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ secrets.DOCKERHUB_USERNAME }}/webscreen-full
+          tags: |
+            type=raw,value=latest,enable=${{ github.ref == 'refs/heads/main' }}
+            type=semver,pattern={{version}}
+
+      - name: Build and push Docker image (Full)
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./docker/full/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta-full.outputs.tags }}
+          labels: ${{ steps.meta-full.outputs.labels }}

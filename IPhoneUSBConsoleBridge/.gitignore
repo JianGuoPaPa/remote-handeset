@@ -1,0 +1,5 @@
+/build/
+/IPhoneUSBConsole.xcodeproj/
+/deploy/runtime/
+*.xcuserstate
+xcuserdata/

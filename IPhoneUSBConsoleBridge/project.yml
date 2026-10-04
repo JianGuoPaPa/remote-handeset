@@ -1,0 +1,68 @@
+name: IPhoneUSBConsole
+options:
+  createIntermediateGroups: true
+  deploymentTarget:
+    macOS: "26.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    MACOSX_DEPLOYMENT_TARGET: "26.0"
+    CODE_SIGN_STYLE: Manual
+    CODE_SIGN_IDENTITY: "-"
+    DEVELOPMENT_TEAM: ""
+packages:
+  SwiftNIO:
+    # `www.github.com` redirects to the same official repository while avoiding
+    # this Mac's unrelated global rewrite of bare github.com URLs.
+    url: https://www.github.com/apple/swift-nio.git
+    exactVersion: 2.101.3
+targets:
+  IPhoneUSBConsole:
+    type: application
+    platform: macOS
+    sources:
+      - path: IPhoneUSBConsole
+        excludes:
+          - Resources/Info.plist
+          - Resources/IPhoneUSBConsole.entitlements
+          - Resources/Web
+          - InteractionOverlayView.swift
+          - LowLatencyVideoPreviewView.swift
+          - MainViewController.swift
+          - MicrophoneInputCoordinator.swift
+          - NativeMicrophoneCapture.swift
+          - PushToTalkButton.swift
+          - RFBInputClient.swift
+          - VideoPreviewView.swift
+          - WebConsoleServer.swift
+          - WebConsoleState.swift
+          - WebHTTPHandler.swift
+          - WebSecurity.swift
+          - WebSocketHandlers.swift
+    dependencies:
+      - package: SwiftNIO
+        product: NIOCore
+      - package: SwiftNIO
+        product: NIOPosix
+    entitlements:
+      path: IPhoneUSBConsole/Resources/IPhoneUSBConsole.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: local.iphone.usbconsole
+        PRODUCT_NAME: iPhone USB Driver
+        EXECUTABLE_NAME: IPhoneUSBDriver
+        INFOPLIST_FILE: IPhoneUSBConsole/Resources/Info.plist
+        SWIFT_OBJC_BRIDGING_HEADER: IPhoneUSBConsole/CBridge/Bridge.h
+        HEADER_SEARCH_PATHS:
+          - "$(PROJECT_DIR)/Vendor/include"
+        OTHER_LDFLAGS:
+          - "$(PROJECT_DIR)/Vendor/lib/libusbmuxd-2.0.a"
+          - "$(PROJECT_DIR)/Vendor/lib/libimobiledevice-glue-1.0.a"
+          - "$(PROJECT_DIR)/Vendor/lib/libplist-2.0.a"
+        LD_RUNPATH_SEARCH_PATHS:
+          - "$(inherited)"
+        ENABLE_HARDENED_RUNTIME: NO
+        GENERATE_INFOPLIST_FILE: NO
+        ASSETCATALOG_COMPILER_APPICON_NAME: ""
+        COMBINE_HIDPI_IMAGES: YES
+        ARCHS: arm64

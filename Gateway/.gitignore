@@ -1,0 +1,11 @@
+webscreen
+recorder
+
+test
+
+# docker related
+.env
+
+dist/
+
+.vscode/

@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+LAUNCHCTL="/var/jb/usr/bin/launchctl"
+[ -x "$LAUNCHCTL" ] || LAUNCHCTL="launchctl"
+"$LAUNCHCTL" bootout system/local.iphone.usbmicd >/dev/null 2>&1 || true
+rm -f \
+    /var/mobile/Library/Caches/local.iphone.usbmic/ingress.sock \
+    /var/mobile/Library/Caches/local.iphone.usbmic/demand.sock
+
+exit 0

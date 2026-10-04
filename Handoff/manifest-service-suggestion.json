@@ -1,0 +1,71 @@
+{
+  "purpose": "parallel_second_site_two_new_android_phones",
+  "target": {
+    "os": "macOS",
+    "arch": "arm64",
+    "existing_binary_min_macos": "26.0",
+    "source_go_min": "1.25.4",
+    "local_go_seen": "1.26.5"
+  },
+  "source_roots": [
+    "Gateway",
+    "RemoteHandset",
+    "RemoteHandset.xcodeproj",
+    "Tests",
+    "Operations",
+    "MacPreview",
+    "IPhoneUSBConsoleBridge"
+  ],
+  "source_root_files": [
+    "project.yml",
+    "README.md",
+    ".gitignore"
+  ],
+  "required_embedded_assets": [
+    "Gateway/sdriver/scrcpy/bin/scrcpy-server-v4.0",
+    "Gateway/sdriver/linux/bin/recorder",
+    "Gateway/public"
+  ],
+  "runtime_suggestions": [
+    "webscreen-secure",
+    "adb",
+    "remote-handset-usb-reenumerate"
+  ],
+  "exclude_from_active_install": [
+    "Experiments/backup3-tripath",
+    "tripath-pilot",
+    "old_adb_private_keys",
+    "old_verified_device_states",
+    "old_guard_launchd_files"
+  ],
+  "current_site_reference_only": {
+    "remote_tunnel_port": 18079,
+    "gateway_port": 8079,
+    "preview_port": 8080
+  },
+  "new_site_required_inputs": [
+    "local_username_and_home",
+    "two_verified_android_hardware_serials",
+    "approved_new_wifi_identity",
+    "new_remote_loopback_tunnel_port",
+    "new_tunnel_key_authorization",
+    "public_routing_and_authentication_plan",
+    "app_target_devices_and_endpoint"
+  ],
+  "hardcoded_wireless_files": [
+    "Gateway/webservice/deviceTransport.go",
+    "Operations/android-unattended-20261003/guard-template.py",
+    "Operations/android-unattended-20261003/adb-router-seven.py",
+    "Operations/android-unattended-20261003/install-guards.py"
+  ],
+  "app": {
+    "min_ios": "17.0",
+    "project_xcode_version": "26.0",
+    "webrtc_exact": "150.0.0",
+    "current_build": "33",
+    "new_phone_list_requires_source_configuration": true
+  },
+  "sensitive_bundle": true,
+  "target_deployment_verified": false,
+  "note": "Suggestion only. Root packager should write an exact final manifest with file hashes and included paths. No secret value present."
+}
