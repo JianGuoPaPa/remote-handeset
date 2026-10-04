@@ -10,7 +10,9 @@
 6. 新站点必须使用独立香港隧道端口、独立授权和独立公网入口，或实现按设备路由。现网远端 `127.0.0.1:18079` 已占用，不可覆盖。不要直接覆盖加密包里的原站点服务器配置。
 7. 修改 `RemoteHandset/App/AppConfiguration.swift` 的新设备清单、入口、解锁与登录密码；移植无线守护和 Gateway 的设备映射，再构建发布新版 App。两部新手机不会自动出现在当前 build 33 中。
 
-仓库包含 Gateway 服务源码、定制 scrcpy server、Swift App/Xcode 工程、iPhone 桥依赖、部署参考及加密的香港管理员登录资料。App 签名私钥、描述文件及 App Store Connect 私钥在当前 Mac 上不可用；成功上传流程见 `Handoff/TestFlight-upload-reference.md`，需沿用有签名环境的 MacBook 或重新配置签名。
+仓库包含 Gateway 服务源码、定制 scrcpy server、Swift App/Xcode 工程、iPhone 桥依赖、部署参考及加密的香港管理员登录资料。
+
+iOS 发布资料已另行加密补充：运行 `bash Credentials/decrypt-ios.command`，使用单独交付的同一口令，结果位于 `.private/ios-publishing/`。包含已验证的 App Store Connect API 私钥、App Store 描述文件和公开证书，**不包含签名私钥/P12**；可上传已签名 IPA，但独立重新构建签名版仍缺签名私钥。具体限制和导入步骤见 `Handoff/ios-publishing.md`，成功上传流程见 `Handoff/TestFlight-upload-reference.md`。
 
 明文源码中的三个现网秘密已替换为占位值；原始值仅在加密包的 `reference-source` 中备查，不会自动回填。GitHub 私有性不能替代对登录私钥的加密保护。既有隧道私钥仅供核对旧部署，新站点应生成自己的受限隧道身份。
 

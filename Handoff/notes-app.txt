@@ -44,7 +44,7 @@ PortalAPI.trustedWebSocketURL 要求 wss、与 Portal 同 host、同 port，且�
 
 本机仅在已检查的位置确认不存在：/Applications 下 Xcode、~/.config/dmini、~/.private_keys、~/Library/MobileDevice/Provisioning Profiles、~/Library/Developer/Xcode/UserData/Provisioning Profiles。
 本机 security find-identity -v -p codesigning 返回 0 个有效签名身份。
-工程和 IPA 不包含重新签名所需的 Apple Distribution 私钥；未发现可供迁移的 .p12、ASC .p8 或 .mobileprovision。因此此次仓库提供完整 App 工程与上传流程；现有已签名 IPA 仅在原 Mac 的 Downloads 留档，未纳入仓库。不能声称新的 Apple 签名环境已经配齐。
+工程和 IPA 不包含重新签名所需的 Apple Distribution 私钥。初次交接时未发现可迁移的 .p12、ASC .p8 或 .mobileprovision；2026-10-04 已从 MacBook 补齐并加密提供 ASC .p8、App Store 描述文件与公开证书，见 Handoff/ios-publishing.md。签名私钥/P12 仍因 macOS 交互授权限制未能导出，不能声称新的 Apple 签名环境已经配齐。现有已签名 IPA 仅在原 Mac 的 Downloads 留档，未纳入仓库。
 既有 MacBook 的成功流程记录：完整 Xcode、~/.config/dmini/asc-api-key.json、其引用的 asc-api-key.p8，以及 Apple altool 所用私钥查找目录。该 MacBook 的签名证书及对应私钥、有效 App Store profile 或 Xcode 自动签名账户权限，应在实际需要发布时通过已有受控方式准备；本次仅打包服务器登录凭证，不扩展导出 Apple 钥匙串。
 新 Apple 芯片 Mac 若仅运行网关，不需要 Xcode iOS 签名环境；只有重建/发布 iOS App 才需要它。
 

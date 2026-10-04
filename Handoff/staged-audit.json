@@ -1,6 +1,6 @@
 {
-  "tracked_files": 366,
-  "tracked_bytes": 8434011,
+  "tracked_files": 370,
+  "tracked_bytes": 8455317,
   "plaintext_private_keys": 0,
   "github_tokens": 0,
   "scrcpy_embedded_jar_tracked": true,
@@ -8,5 +8,7 @@
   "decrypted_credentials_ignored": true,
   "scope": "Current sanitized publish snapshot, excluding deleted paths and ignored private files; does not audit old local Git history.",
   "removed_runtime_json_files": 32,
-  "guard_network_defaults_cleared": 8
+  "guard_network_defaults_cleared": 8,
+  "ios_encrypted_credentials_tracked": true,
+  "ios_plaintext_signing_private_key_included": false
 }

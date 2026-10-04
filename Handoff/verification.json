@@ -13,5 +13,16 @@
     "python_syntax": "passed for all retained unattended Python scripts",
     "old_local_git_history": "must not be pushed; upload current sanitized snapshot with remote master parent"
   },
-  "github_authorization": "Personal account installation verified; current snapshot prepared for upload."
+  "github_authorization": "Personal account installation verified; current snapshot prepared for upload.",
+  "ios_publishing": {
+    "api_authentication": "GET /v1/apps/6799048892 returned HTTP 200",
+    "archive_sha256": "6530919ae9c41a94bb7607c611a2f577d6a1653009bda0053469d90042f40ef7",
+    "transfer_sha256": "MacBook and Mac mini identical",
+    "decryption_roundtrip": "passed; 7 files, 6 internal SHA256 checks matched",
+    "signing_private_key_included": false,
+    "standalone_signing_ready": false,
+    "missing_reason": "macOS denied SSH export of the existing signing private key; local interactive authorization required",
+    "new_certificate_created": false,
+    "old_certificates_revoked": false
+  }
 }
